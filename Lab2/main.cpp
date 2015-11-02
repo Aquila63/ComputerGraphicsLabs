@@ -169,7 +169,6 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { 0.0f, 0.1f, 0.0f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 
@@ -177,7 +176,6 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { 0.0f, -0.1f, 0.0f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 
@@ -185,7 +183,6 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { -0.1f, 0.0f, 0.0f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 
@@ -193,41 +190,35 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { 0.1f, 0.0f, 0.0f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 		case('z') : //-z
 		{
 			vec3 v = { 0.0f, 0.0f, 0.1f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 		case('x') : //+z
 		{
 			vec3 v = { 0.0f, 0.0f, -0.1f };
 			alterMat = translate(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 
-		//ROTATE
+		//Rotation
 		case('q') : //x
 		{
 			alterMat = rotate_x_deg(alterMat, 10.0f);
-			glutPostRedisplay();
 			break;
 		}
 		case('e') ://y
 		{
 			alterMat = rotate_y_deg(alterMat, 10.0f);
-			glutPostRedisplay();
 			break;
 		}
 		case('r') : //z
 		{
 			alterMat = rotate_z_deg(alterMat, 10.0f);
-			glutPostRedisplay();
 			break;
 		}
 		//Uniform Scaling
@@ -235,15 +226,12 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { 1.5f, 1.5f, 1.5f };
 			alterMat = scale(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
-
 		case('g') : //Smaller
 		{
 			vec3 v = { 0.5f, 0.5f, 0.5f };
 			alterMat = scale(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 		//Non Uniform Scaling
@@ -251,30 +239,25 @@ void keyPressed(unsigned char key, int x, int y)
 		{
 			vec3 v = { 1.0f, 0.5f, 0.5f };
 			alterMat = scale(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
 		case('y') :	//y
 		{
 			vec3 v = { 0.5f, 1.0f, 0.5f };
 			alterMat = scale(alterMat, v);
-			glutPostRedisplay();
 			break;		
 		}
 		case('u') : //z
 		{
 			vec3 v = { 0.5f, 0.5f, 1.0f };
 			alterMat = scale(alterMat, v);
-			glutPostRedisplay();
 			break;
 		}
-		
 		case('.') : //Combined Transformaton - Translation + Rotation
 		{
 			vec3 v = { 0.1f, 0.0f, 0.0f };
 			alterMat = translate(alterMat, v);
 			alterMat = rotate_x_deg(alterMat, 10.0f);
-			glutPostRedisplay();
 			break;
 		}
 		case(',') : //Combined Transformaton - Translation + Rotation
@@ -282,19 +265,16 @@ void keyPressed(unsigned char key, int x, int y)
 			vec3 v = { 0.1f, 0.0f, 0.0f };
 			alterMat = translate(alterMat, v);
 			alterMat = rotate_x_deg(alterMat, 10.0f);
-			glutPostRedisplay();
 			break;
 		}
-
 		case('W') : //Second shape translate, proof of concept
 		{
 			vec3 v = { 0.0f, 0.1f, 0.0f };
 			alterMatNew = translate(alterMatNew, v);
-			glutPostRedisplay();
 			break;
 		}
-
 	}
+	glutPostRedisplay();
 }
 
 void keyReleased(unsigned char key, int x, int y) { }

@@ -1,0 +1,20 @@
+#version 330
+
+in vec3 vertex_position;
+in vec3 vertex_normals;
+in vec2 vertex_texture;
+
+out vec3 normal_eye, position_eye;
+out mat4 view_mat;
+out vec2 frag_tex;
+
+uniform mat4 view;
+uniform mat4 proj;
+uniform mat4 model;
+
+void main(){
+	normal_eye = (view * vec4 (vertex_normals, 0.0)).xyz;
+	position_eye = vec3(view * model * vec4(vertex_normals, 1.0));
+	gl_Position =  proj * view * model * vec4 (vertex_position, 1.0);
+	frag_tex = vertex_texture;
+}

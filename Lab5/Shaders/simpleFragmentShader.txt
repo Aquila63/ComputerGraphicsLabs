@@ -1,0 +1,45 @@
+#version 330
+
+in vec3 normal_eye, position_eye;
+in mat4 view_mat;
+in vec2 frag_tex;
+
+uniform sampler2D my_tex;
+
+vec3 light_position_world = vec3(4.0, 0.0, 3.0);
+
+vec3 Ls = vec3(1.0, 1.0, 1.0); //white specular colour
+vec3 Ld = vec3(0.7, 0.7, 0.7); //dull white diffuse light colour
+vec3 La = vec3(0.2, 0.2, 0.2); //grey ambient colour
+
+vec3 Ks = vec3(1.0, 1.0, 1.0); //fully reflect specular light
+vec3 Kd = vec3(1.0, 0.5, 0.0); //orrange diffuse surface reflectance
+vec3 Ka = vec3(1.0, 1.0, 1.0); //fully reflect ambient light
+float spec_exponent = 100; //specular power
+
+out vec4 frag_colour;
+
+void main(){
+
+	//ambient intensity 	
+	vec3 Ia = La * Ka;
+	
+	vec3 light_position_eye = vec3(view_mat * vec4(light_position_world, 1.0));
+	vec3 distance_to_light_eye = light_position_eye - position_eye;
+	vec3 direction_to_light_eye = normalize(distance_to_light_eye);
+	
+	float dot_product = dot(direction_to_light_eye, normal_eye);
+	dot_product = max(dot_product, 0.0); 
+	vec3 Id = Ld * Kd * dot_product; //diffuse intensity 
+
+	vec3 reflection_eye = reflect(-direction_to_light_eye, normal_eye);
+	vec3 surface_to_viewer_eye = normalize(-position_eye);
+	
+	float dot_product_spec = dot(reflection_eye, surface_to_viewer_eye);
+	dot_product_spec = max(dot_product_spec, 0.0);
+	float spec_factor = pow(dot_product_spec, spec_exponent);
+	vec3 Is = Ls * Ks * spec_factor; //specular intensity
+
+	frag_colour = vec4 (Ia + Id + Is, 1.0);
+	frag_colour *=  texture(my_tex, frag_tex);
+}
